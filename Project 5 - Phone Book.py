@@ -1,28 +1,66 @@
 
-def add_contact(phone_book, name, phone, email, category):
-    """
-    Add a new contact to the phone book
-    Return True if added successfully, False if contact already exists
-    """
-    pass
+class phone_book():
+    phone_book_dict = {}
 
-def search_contact(phone_book, name):
-    """
-    Search for a contact by name
-    Return contact details if found, None if not found
-    """
-    pass
+    def add_contact(name: "N/A", phone: "Missing No.", email: "No Email", category: "No Category Specified"):
+        """
+        Add a new contact to the phone book
+        Return True if added successfully, False if contact already exists
+        example of categories: friend, family, work
+        """
+        pass
 
-def get_contacts_by_category(phone_book, category):
+    def search_contact(name):
+        """
+        Search for a contact by name
+        Return contact details if found, None if not found
+        """
+        pass
+
+    def get_contacts_by_category(category):
+        """
+        Return all contacts in a specific category
+        """
+        pass
+
+    def update_contact(name: "N/A", phone: "Missing No.", email: "No Email", category: "No Category Specified"):
+        """
+        Update a new contact in the phone book
+        Return updated json data of contact (name, phone, email, category)
+        example of categories: friend, family, work
+        """
+        pass
+
+    def delete_contact(name):
+        """
+        Delete contact by name
+        Return "Contact Deleted" if successful or "Contact Not Found" if contact did not exist
+        """
+
+# File called contacts.csv
+# contact_name = phone_book["John Doe"]
+def write_to_file(file, contact_name):
     """
-    Return all contacts in a specific category
+    Write contact info to a file.
+    Return Success on success, otherwise Fail and error message.
     """
-    pass
+    # contact_info_to_write = phone_book.search_contact(name="John Doe")
+    # contact_info_to_write = {"John Doe", 555-0123, ...}
+    # with_open...open file(contacts.csv)
+    # csv library to add in row of data (contact_info_to_write)
+
+# def read_from_file(file, )
+
+def retreive_contact_from_file(file, name):
+    """
+    Retreive contact info from a file by name.
+    Return contact info (phone, email, category)
+    """
 
 program_options = {
     1: add_contact,
     2: search_contact,
-    3: get_contacts_by_category,
+    3: get_contacts_by_category
 }
 
 # Example structure:
@@ -31,6 +69,9 @@ phone_book = {
         'phone': '555-0123',
         'email': 'john@example.com',
         'category': 'work'
+    },
+    "Jane Doe": {
+        'phone': "555-9876"
     }
 }
 
@@ -73,6 +114,9 @@ def welcome_screen():
     print("1. Add Contact")
     print("2. Search Contact")
     print("3. Get Contacts By Category")
+    print("4. Update Contact")
+    print("5. Delete Contact")
+
 
 def menu_select()->int:
     # Continuously prompt user options
