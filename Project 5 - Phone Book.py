@@ -2,7 +2,7 @@
 class phone_book():
     phone_book_dict = {}
 
-    def add_contact(name: "N/A", phone: "Missing No.", email: "No Email", category: "No Category Specified"):
+    def add_contact(name="N/A", phone="Missing No.", email="No Email", category="No Category Specified"):
         """
         Add a new contact to the phone book
         Return True if added successfully, False if contact already exists
@@ -23,7 +23,7 @@ class phone_book():
         """
         pass
 
-    def update_contact(name: "N/A", phone: "Missing No.", email: "No Email", category: "No Category Specified"):
+    def update_contact(name: "N/A", phone="Missing No.", email="No Email", category="No Category Specified"):
         """
         Update a new contact in the phone book
         Return updated json data of contact (name, phone, email, category)
