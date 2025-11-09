@@ -1,6 +1,8 @@
+import pprint
 
 class phone_book():
-    phone_book_dict = {}
+    def __init__(self):
+        self.phone_book_dict = dict()
 
     def add_contact(name="N/A", phone="Missing No.", email="No Email", category="No Category Specified"):
         """
@@ -8,14 +10,33 @@ class phone_book():
         Return True if added successfully, False if contact already exists
         example of categories: friend, family, work
         """
-        pass
+        if name != None:
+            phone_book.phone_book_dict[name] = {
+                "phone": phone, 
+                "email":email,
+                "category": category
+                }
+            print(f"Added: {name}") # testing/dev print TODO: remove
+            pprint.pprint(phone_book.phone_book_dict)
+            return
+        else:
+            print("Please provide a name")
+            return
 
     def search_contact(name):
         """
         Search for a contact by name
         Return contact details if found, None if not found
         """
-        pass
+        if name != None:
+            try:
+                contact_details = phone_book.phone_book_dict[name]
+                if contact_details != None:
+                    return {name: contact_details}
+                else:
+                    return None # return 
+            except Exception as e:
+                print(f"An error occured: {e}")
 
     def get_contacts_by_category(category):
         """
