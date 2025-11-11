@@ -12,13 +12,13 @@ class phone_book():
         """
         if name != None:
             phone_book.phone_book_dict[name] = {
-                "phone": phone, 
+                "phone": phone,
                 "email":email,
                 "category": category
                 }
             print(f"Added: {name}") # testing/dev print TODO: remove
             pprint.pprint(phone_book.phone_book_dict)
-            return
+            return {name: phone_book.phone_book_dict[name]} # return added contact key:value pair
         else:
             print("Please provide a name")
             return
@@ -42,21 +42,53 @@ class phone_book():
         """
         Return all contacts in a specific category
         """
-        pass
+        contact_matches = {k: v for k, v in phone_book.phone_book_dict.items() if v == category}
+        pprint.pprint(contact_matches) # TODO test print, delete after
+        return contact_matches
 
-    def update_contact(name: "N/A", phone="Missing No.", email="No Email", category="No Category Specified"):
+    def update_contact(name, phone, email, category): # defaults must be removed
         """
         Update a new contact in the phone book
         Return updated json data of contact (name, phone, email, category)
         example of categories: friend, family, work
         """
-        pass
+        print(f"update_contact for [\"{name}\"] Before update: ") # TODO remove after testing
+        pprint.pprint(phone_book.phone_book_dict[name])
+        
+        if name != None:
+            if phone != None:
+                phone_book.phone_book_dict[name] = {
+                    "phone": phone
+                    }
+            if email != None:
+                phone_book.phone_book_dict[name] = {
+                    "email":email
+                    }
+            if category != None:
+                phone_book.phone_book_dict[name] = {
+                    "category": category
+                    }
+            print(f"update_contact for [\"{name}\"] After update: ") # TODO remove after testing
+            pprint.pprint(phone_book.phone_book_dict[name])
+            
+            return {name: phone_book.phone_book_dict[name]} # return updated contact key:value pair
+        else:
+            print("Please provide a name")
+            return
 
     def delete_contact(name):
         """
         Delete contact by name
         Return "Contact Deleted" if successful or "Contact Not Found" if contact did not exist
         """
+        if name != None:
+            try:
+                contact_removed = phone_book.phone_book_dict.pop(name)
+            except Exception as e:
+                print(e)
+                return None
+        print("Contact Deleted" if contact_removed else "Contact Not Found") # TODO talk to Marco about method return value.
+        return contact_removed
 
 # File called contacts.csv
 # contact_name = phone_book["John Doe"]
