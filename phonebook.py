@@ -1,4 +1,12 @@
 import pprint
+import enum
+
+class UserInput(enum):
+    ADD_CONTACT = 1
+    SEARCH_CONTACt = 2
+    GET_CONTACTS_BY_CATEGORY = 3
+    UPDATE_CONTACT = 4
+    DELETE_CONTACT = 5
 
 class phone_book():
     def __init__(self):
@@ -110,12 +118,6 @@ def retreive_contact_from_file(file, name):
     Return contact info (phone, email, category)
     """
 
-program_options = {
-    1: add_contact,
-    2: search_contact,
-    3: get_contacts_by_category
-}
-
 # Example structure:
 phone_book = {
     'John Doe': {
@@ -182,30 +184,34 @@ def menu_select()->int:
 
 def execute_menu_selection(usr_input:int):
     # add phone book as global, as it will be modified
-    global phone_book
+    
 
     # perform selection option
-    if usr_input in program_options:
-        selected_function = program_options[usr_input]
+    if usr_input == UserInput.ADD_CONTACT:
+        print("Add contact selected. Enter information ...")
+        in_name = input("Name: ")
+        in_phone = input("Phone: ")
+        in_email = input("E-mail: ")
+        in_category = input("Category: ")
+        phone_book.add_contact()
+        
+    elif usr_input == UserInput.SEARCH_CONTACt:
 
-        if usr_input == 1:
-            print("Add contact selected. Enter information ...")
-            in_name = input("Name: ")
-            in_phone = input("Phone: ")
-            in_email = input("E-mail: ")
-            in_category = input("Category: ")
-            selected_function(phone_book, in_name, in_phone, in_email, in_category)
-        elif usr_input == 2:
+        pass
+    elif usr_input == UserInput.GET_CONTACTS_BY_CATEGORY:
+        pass
 
-            pass
-        elif usr_input == 3:
-            pass
-        else:
-            print("Not valid option. Please Try again")
+    elif usr_input == UserInput.UPDATE_CONTACT:
+        pass
+
+    elif usr_input == UserInput.DELETE_CONTACT:
+        pass
+
     else:
-        print("Not a valid option. Please try again.")
+        print("Not valid option. Please Try again")
 
 def main():
+    phoneBook = phone_book()
     # title screen
     title_screen()
 
