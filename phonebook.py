@@ -1,32 +1,32 @@
 import pprint
 import enum
 
-class UserInput(enum):
+class UserInput(enum.Enum):
     ADD_CONTACT = 1
     SEARCH_CONTACt = 2
     GET_CONTACTS_BY_CATEGORY = 3
     UPDATE_CONTACT = 4
     DELETE_CONTACT = 5
 
-class phone_book():
+class PhoneBook():
     def __init__(self):
-        self.phone_book_dict = dict()
+        self.phone_book_dict = {}
 
-    def add_contact(name="N/A", phone="Missing No.", email="No Email", category="No Category Specified"):
+    def add_contact(self, name="N/A", phone="Missing No.", email="No Email", category="No Category Specified"):
         """
         Add a new contact to the phone book
         Return True if added successfully, False if contact already exists
         example of categories: friend, family, work
         """
         if name != None:
-            phone_book.phone_book_dict[name] = {
+            self.phone_book_dict[name] = {
                 "phone": phone,
                 "email":email,
                 "category": category
                 }
             print(f"Added: {name}") # testing/dev print TODO: remove
-            pprint.pprint(phone_book.phone_book_dict)
-            return {name: phone_book.phone_book_dict[name]} # return added contact key:value pair
+            pprint.pprint(self.phone_book_dict)
+            return {name: self.phone_book_dict[name]} # return added contact key:value pair
         else:
             print("Please provide a name")
             return
@@ -182,36 +182,38 @@ def menu_select()->int:
         print("Invalid input. Please enter a number.")
         return -1
 
-def execute_menu_selection(usr_input:int):
+def execute_menu_selection(usr_input:int, phonebook: PhoneBook):
     # add phone book as global, as it will be modified
-    
-
+    print(f"DEBUG: user_input = {usr_input}")
+    print(f"DEBUG: ADD_CONTACT = {UserInput.ADD_CONTACT.value}")
     # perform selection option
-    if usr_input == UserInput.ADD_CONTACT:
+    if usr_input == UserInput.ADD_CONTACT.value:
         print("Add contact selected. Enter information ...")
         in_name = input("Name: ")
         in_phone = input("Phone: ")
         in_email = input("E-mail: ")
         in_category = input("Category: ")
-        phone_book.add_contact()
-        
-    elif usr_input == UserInput.SEARCH_CONTACt:
+        phonebook.add_contact(in_name, in_phone, in_email, in_category)
+        print(f"DEBUG: contact added 🤔")
+    elif usr_input == UserInput.SEARCH_CONTACt.value:
 
         pass
-    elif usr_input == UserInput.GET_CONTACTS_BY_CATEGORY:
+    elif usr_input == UserInput.GET_CONTACTS_BY_CATEGORY.value:
         pass
 
-    elif usr_input == UserInput.UPDATE_CONTACT:
+    elif usr_input == UserInput.UPDATE_CONTACT.value:
         pass
 
-    elif usr_input == UserInput.DELETE_CONTACT:
+    elif usr_input == UserInput.DELETE_CONTACT.value:
         pass
 
     else:
         print("Not valid option. Please Try again")
 
-def main():
-    phoneBook = phone_book()
+
+
+if __name__ == "__main__":
+    phoneBook = PhoneBook()
     # title screen
     title_screen()
 
@@ -222,11 +224,7 @@ def main():
     user_input = menu_select()
 
     # execute user menu selection
-    execute_menu_selection(user_input)
-
-
-if __name__ == "__main__":
-    main()
+    execute_menu_selection(user_input, phoneBook)
 
 # TODO -- Next --
 # TODO 1- refactor execute_menu_selection()
