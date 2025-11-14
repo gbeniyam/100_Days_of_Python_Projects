@@ -1,13 +1,20 @@
 import pprint
-import enum
+# import enum
 
-class UserInput(enum.Enum):
-    ADD_CONTACT = 1
-    SEARCH_CONTACt = 2
-    GET_CONTACTS_BY_CATEGORY = 3
-    UPDATE_CONTACT = 4
-    DELETE_CONTACT = 5
-
+# class UserInput(enum.Enum):
+#     ADD_CONTACT = 1
+#     SEARCH_CONTACt = 2
+#     GET_CONTACTS_BY_CATEGORY = 3
+#     UPDATE_CONTACT = 4
+#     DELETE_CONTACT = 5
+valid_options = {
+    "1": "Add Contact",
+    "2": "Search Contact",
+    "3": "Get Contacts By Category",
+    "4": "Update Contact",
+    "5": "Delete Contact",
+    "q": "Quit Program"
+}
 class PhoneBook():
     def __init__(self):
         self.phone_book_dict = {}
@@ -31,14 +38,14 @@ class PhoneBook():
             print("Please provide a name")
             return
 
-    def search_contact(name):
+    def search_contact(self, name):
         """
         Search for a contact by name
         Return contact details if found, None if not found
         """
         if name != None:
             try:
-                contact_details = phone_book.phone_book_dict[name]
+                contact_details = self.phone_book_dict[name]
                 if contact_details != None:
                     return {name: contact_details}
                 else:
@@ -171,23 +178,17 @@ def welcome_screen():
     print("3. Get Contacts By Category")
     print("4. Update Contact")
     print("5. Delete Contact")
+    print("q. Quit Program")
 
+# def menu_select():
+#     pass
 
-def menu_select()->int:
-    # Continuously prompt user options
-    try:
-        user_input = int(input("Enter: "))
-        return user_input
-    except ValueError:
-        print("Invalid input. Please enter a number.")
-        return -1
-
-def execute_menu_selection(usr_input:int, phonebook: PhoneBook):
+def execute_menu_selection(usr_input: str, phonebook: PhoneBook):
     # add phone book as global, as it will be modified
     print(f"DEBUG: user_input = {usr_input}")
-    print(f"DEBUG: ADD_CONTACT = {UserInput.ADD_CONTACT.value}")
+    print(f"DEBUG: ADD_CONTACT = {valid_options[usr_input]}")
     # perform selection option
-    if usr_input == UserInput.ADD_CONTACT.value:
+    if valid_options[usr_input] == "Add Contact":
         print("Add contact selected. Enter information ...")
         in_name = input("Name: ")
         in_phone = input("Phone: ")
@@ -195,16 +196,24 @@ def execute_menu_selection(usr_input:int, phonebook: PhoneBook):
         in_category = input("Category: ")
         phonebook.add_contact(in_name, in_phone, in_email, in_category)
         print(f"DEBUG: contact added 🤔")
-    elif usr_input == UserInput.SEARCH_CONTACt.value:
+    elif valid_options[usr_input] == "Search Contact":
+        print("Search contact selected. Enter information ...")
+        in_name = input("Name: ")
+        print(f"Searching {in_name} ...")
+        contact_result = phonebook.search_contact(in_name)
+        if contact_result == None:
+            print(f"{in_name} not found.")
+        else:
+            print(f"{in_name} contact info found: ")
+            pprint.pprint(contact_result)
 
-        pass
-    elif usr_input == UserInput.GET_CONTACTS_BY_CATEGORY.value:
-        pass
-
-    elif usr_input == UserInput.UPDATE_CONTACT.value:
+    elif valid_options[usr_input] == "Get Contacts By Category":
         pass
 
-    elif usr_input == UserInput.DELETE_CONTACT.value:
+    elif valid_options[usr_input] == "Update Contact":
+        pass
+
+    elif valid_options[usr_input] == "Delete Contact":
         pass
 
     else:
@@ -214,17 +223,32 @@ def execute_menu_selection(usr_input:int, phonebook: PhoneBook):
 
 if __name__ == "__main__":
     phoneBook = PhoneBook()
+    user_input = None
+    # valid_options = ("1", "2", "3", "4", "5", "q", "quit")
+    # valid_options = {
+    #     "1": "Add Contact",
+    #     "2": "Search Contact",
+    #     "3": "Get Contacts By Category",
+    #     "4": "Update Contact",
+    #     "5": "Delete Contact",
+    #     "q": "Quit Program"
+    # }
     # title screen
     title_screen()
 
     # welcome user to phone book manager program
     welcome_screen()
 
-    # Get user menu selection
-    user_input = menu_select()
-
-    # execute user menu selection
-    execute_menu_selection(user_input, phoneBook)
+    while True:
+        # Get user menu selection
+        user_input = input("Enter: ")
+        if user_input.lower() == "q" or user_input.lower() == "quit":
+            print("Quitting Program")
+            break
+        elif user_input not in valid_options.keys():
+            print("Invalid input. Please enter a valid menu option.")
+        # execute user menu selection
+        execute_menu_selection(user_input, phoneBook)
 
 # TODO -- Next --
 # TODO 1- refactor execute_menu_selection()
