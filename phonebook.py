@@ -32,7 +32,7 @@ class PhoneBook():
                 "category": category
                 }
             print(f"Added: {name}") # testing/dev print TODO: remove
-            pprint.pprint(self.phone_book_dict)
+            # pprint.pprint(self.phone_book_dict)
             return {name: self.phone_book_dict[name]} # return added contact key:value pair
         else:
             print("Please provide a name")
@@ -53,7 +53,7 @@ class PhoneBook():
             except Exception as e:
                 print(f"An error occured: {e}")
 
-    def get_contacts_by_category(category):
+    def get_contacts_by_category(self, category):
         """
         Return all contacts in a specific category
         """
@@ -133,7 +133,14 @@ phone_book = {
         'category': 'work'
     },
     "Jane Doe": {
-        'phone': "555-9876"
+        'phone': "555-9876",
+        'email': "jane@example.com",
+        'category': 'friend'
+    },
+        "Bob Ross": {
+        'phone': "555-9876",
+        'email': "bobross@example.com",
+        'category': 'family'
     }
 }
 
@@ -208,7 +215,12 @@ def execute_menu_selection(usr_input: str, phonebook: PhoneBook):
             pprint.pprint(contact_result)
 
     elif valid_options[usr_input] == "Get Contacts By Category":
-        pass
+        print("List contacts by category selected. Enter information ...")
+        in_category = input("Category: ")
+        # contacts_by_category = [name for name, category in phonebook.items()]
+        category_contacts = phonebook.get_contacts_by_category(in_category)
+        print("Returned List:")
+        pprint.pprint(category_contacts) # TODO test this
 
     elif valid_options[usr_input] == "Update Contact":
         pass
