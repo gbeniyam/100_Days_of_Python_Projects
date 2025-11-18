@@ -57,7 +57,7 @@ class PhoneBook():
         """
         Return all contacts in a specific category
         """
-        contact_matches = {k: v for k, v in phone_book.phone_book_dict.items() if v == category}
+        contact_matches = {k: v for k, v in self.phone_book_dict.items() if v["category"] == category}
         pprint.pprint(contact_matches) # TODO test print, delete after
         return contact_matches
 
