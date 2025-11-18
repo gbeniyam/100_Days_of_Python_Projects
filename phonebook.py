@@ -91,18 +91,18 @@ class PhoneBook():
             print("Please provide a name")
             return
 
-    def delete_contact(name):
+    def delete_contact(self, name):
         """
         Delete contact by name
-        Return "Contact Deleted" if successful or "Contact Not Found" if contact did not exist
+        Return deleted contact if successful or None if contact did not exist
         """
         if name != None:
             try:
-                contact_removed = phone_book.phone_book_dict.pop(name)
+                contact_removed = self.phone_book_dict.pop(name)
             except Exception as e:
-                print(e)
+                print(f"Contact Not Found: {e}")
                 return None
-        print("Contact Deleted" if contact_removed else "Contact Not Found") # TODO talk to Marco about method return value.
+        print("Contact Deleted")
         return contact_removed
 
 # File called contacts.csv

@@ -121,10 +121,8 @@ if __name__ == "__main__":
     print("="*60)
     for name in list(test_data.keys()):
         print(f"Deleting: {name}")
-        # Note: delete_contact has bugs in phonebook.py (missing self)
-        # Using direct deletion instead
-        if name in phoneBook.phone_book_dict:
-            del phoneBook.phone_book_dict[name]
+        deleted_contact = phoneBook.delete_contact(name)
+        if deleted_contact:
             print(f"✓ Deleted: {name}")
         else:
             print(f"✗ Not found: {name}")
